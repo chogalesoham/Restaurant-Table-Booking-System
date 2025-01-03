@@ -5,10 +5,14 @@ const {
   getBookings,
   deleteBooking,
   getRestaurants,
+  getRestaurantById,
 } = require("../controllers/bookingController");
 
 //fetch restaurant data
 router.get("/restaurants", getRestaurants);
+
+//fetch restaurant by id
+router.get("/restaurants/:id", getRestaurantById);
 
 //create a new booking
 router.post("/create", createBooking);

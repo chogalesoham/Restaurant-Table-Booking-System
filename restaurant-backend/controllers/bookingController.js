@@ -12,8 +12,23 @@ const getRestaurants = async (req, res) => {
   }
 };
 
+// GET API to fetch restaurant By id
+const getRestaurantById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const restaurantById = await Restaurant.findById(id);
+    if (!restaurantById) {
+      return res.status(404).json({ message: "Restaurant not found" });
+    }
+    res.status(200).json(restaurantById);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching restaurant", error });
+  }
+};
+
 // Create a booking
 const createBooking = async (req, res) => {
+  console.log("Request Body:", req.body);
   const { name, contact, guests, date, time } = req.body;
 
   try {
@@ -38,7 +53,6 @@ const getBookings = async (req, res) => {
 // Delete a booking by ID
 const deleteBooking = async (req, res) => {
   const { id } = req.params;
-
   try {
     const booking = await Booking.findByIdAndDelete(id);
     if (!booking) {
@@ -50,4 +64,10 @@ const deleteBooking = async (req, res) => {
   }
 };
 
-module.exports = { createBooking, getBookings, deleteBooking, getRestaurants };
+module.exports = {
+  createBooking,
+  getBookings,
+  deleteBooking,
+  getRestaurants,
+  getRestaurantById,
+};

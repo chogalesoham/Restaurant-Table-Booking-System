@@ -1,12 +1,17 @@
-// app/Componets/booking-form.js
 "use client";
 
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
+import { ImSpinner } from "react-icons/im";
 
 const BookingForm = ({ restaurantData }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const [formData, setFormData] = useState({
+    restaurantName: restaurantData?.name,
+    restaurantImage: restaurantData?.img,
     name: "",
     contact: "",
     guests: "",
@@ -24,19 +29,31 @@ const BookingForm = ({ restaurantData }) => {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
-
-    // Preparing query params
-    const queryParams = new URLSearchParams({
-      name: formData.name,
-      contact: formData.contact,
-      guests: formData.guests,
-      date: formData.date,
-      time: formData.time,
-      restaurant: JSON.stringify(restaurantData),
-    });
-
-    // Redirect to the confirmation page with the query parameters
-    router.push(`/confirmation?${queryParams.toString()}`);
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      if (response.ok) {
+        Cookies.set("formData", JSON.stringify(formData), { expires: 1 });
+        Cookies.set("restaurantData", JSON.stringify(restaurantData), {
+          expires: 1,
+        });
+        toast.success("Restaurant Booking SuccessFull");
+        router.push("/confirmation");
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.log("Error Restaurant Booking !");
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -140,9 +157,14 @@ const BookingForm = ({ restaurantData }) => {
 
       <button
         type="submit"
-        className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
+        className={`w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700
+         ${isLoading ? " cursor-not-allowed" : " cursor-pointer"}  `}
       >
-        Submit
+        {isLoading ? (
+          <ImSpinner className=" text-2xl animate-spin mx-auto" />
+        ) : (
+          "Submit"
+        )}
       </button>
     </form>
   );

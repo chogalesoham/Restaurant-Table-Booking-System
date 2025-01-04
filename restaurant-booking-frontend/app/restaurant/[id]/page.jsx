@@ -1,4 +1,3 @@
-// app/[id]/page.js
 import BookingForm from "@/app/Componets/booking-form";
 
 export default async function RestaurantPage({ params }) {
@@ -6,7 +5,7 @@ export default async function RestaurantPage({ params }) {
 
   // Fetch restaurant data
   const restaurant = await fetch(
-    `http://localhost:5000/api/bookings/restaurants/${id}`
+    `${process.env.NEXT_PUBLIC_API_URL}/restaurants/${id}`
   ).then((res) => res.json());
 
   if (!restaurant) {
@@ -45,7 +44,6 @@ export default async function RestaurantPage({ params }) {
           </div>
         </div>
 
-        {/* Pass restaurant data as a prop to BookingForm */}
         <BookingForm restaurantData={restaurant} />
       </div>
     </div>

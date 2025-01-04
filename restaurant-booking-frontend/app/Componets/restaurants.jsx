@@ -12,7 +12,7 @@ const Restaurants = () => {
   const getRestaurantData = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/bookings/restaurants");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/restaurants`);
       const data = await res.json();
       setRestaurants(data);
       setIsLoading(false);

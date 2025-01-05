@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { RxCross1 } from "react-icons/rx";
 import { toast } from "react-toastify";
+import { FaTrashAlt } from "react-icons/fa";
 
 const Header = () => {
   const [showBooking, setShowBooking] = useState(false);
@@ -55,7 +56,7 @@ const Header = () => {
   }, [showBooking]);
 
   return (
-    <header className="px-10 py-3 shadow-lg fixed top-0 left-0 right-0 bg-white z-10">
+    <header className=" px-4 xl:px-10 py-3 shadow-lg fixed top-0 left-0 right-0 bg-white z-10">
       <div className="container mx-auto flex items-center justify-between">
         <Link href={"/"}>
           <Image
@@ -63,13 +64,13 @@ const Header = () => {
             width={250}
             height={200}
             alt="logo"
-            className="object-cover cursor-pointer"
+            className=" object-fill cursor-pointer w-[200] h-[50]"
           />
         </Link>
 
         <button
           onClick={() => setShowBooking(!showBooking)}
-          className="bg-black p-3 rounded-lg text-sm text-white font-bold hover:bg-slate-600 cursor-pointer"
+          className="bg-black p-2 xl:p-3 rounded-lg text-sm text-white xl:font-bold hover:bg-slate-600 cursor-pointer"
         >
           Your Tables
         </button>
@@ -80,16 +81,18 @@ const Header = () => {
               style={{ opacity: showBooking ? 0.6 : 0 }}
             ></div>
             <div
-              className={`w-[400px] h-screen fixed bg-white top-0 right-0 bottom-0 z-30 p-2 transition-transform duration-500 ease-in-out`}
+              className={` w-full md:w-[400px] h-screen fixed bg-white top-0 right-0 bottom-0 z-30 p-2 transition-transform duration-500 ease-in-out`}
               style={{
                 transform: showBooking ? "translateX(0)" : "translateX(100%)",
               }}
             >
               <div className="flex items-center justify-between p-3">
-                <h2>Your Restaurants</h2>
+                <h2 className=" text-xl font-bold my-2  ">
+                  Your Restaurants Booking
+                </h2>
                 <RxCross1
                   onClick={() => setShowBooking(!showBooking)}
-                  className="cursor-pointer"
+                  className="cursor-pointer h-8 w-8 font-bold bg-red-600 rounded-lg p-2 text-white hover:bg-transparent border-black hover:text-black"
                 />
               </div>
               <hr />
@@ -100,34 +103,45 @@ const Header = () => {
                     return (
                       <div
                         key={item?._id}
-                        className="w-full shadow-lg rounded-md min-h-20"
+                        className="w-full shadow-lg rounded-md min-h-16 border"
                       >
-                        <div className="flex items-center justify-between gap-2 p-2">
+                        <div className="flex items-center justify-around gap-1 p-1">
                           <Image
                             src={item?.restaurantImage}
                             alt={item?.restaurantName}
-                            height={50}
-                            width={50}
-                            className="rounded-full"
+                            height={60}
+                            width={60}
+                            className="rounded-full shadow-xl border"
                           />
                           <div className="flex flex-col items-start gap-1">
-                            <h3>{item?.restaurantName}</h3>
-                            <p>for {item?.guests} guests</p>
+                            <h3 className=" text-xl font-semibold">
+                              {item?.restaurantName}
+                            </h3>
+                            <p className=" text-sm font-semibold text-gray-700">
+                              {" "}
+                              Table Book For {item?.guests} Guests
+                            </p>
                             <div className="flex items-center justify-start gap-2">
-                              <span>{item?.date}</span>
-                              <span>{item?.time}</span>
+                              <span className=" text-sm text-gray-700">
+                                Date: <b>{item?.date}</b>
+                              </span>
+                              <span className=" text-sm text-gray-700">
+                                Time: <b> {item?.time}</b>
+                              </span>
                             </div>
                           </div>
-                          <RxCross1
+                          <FaTrashAlt
                             onClick={() => deleteBooking(item?._id)}
-                            className="cursor-pointer"
+                            className="cursor-pointer text-xl text-red-700"
                           />
                         </div>
                       </div>
                     );
                   })
                 ) : (
-                  <p>No bookings available</p>
+                  <div className=" mt-28">
+                    <p className="text-xl font-bold">No Bookings Available !</p>
+                  </div>
                 )}
               </div>
             </div>

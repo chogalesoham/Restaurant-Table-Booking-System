@@ -59,7 +59,7 @@ const BookingForm = ({ restaurantData }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-[40%] h-full p-4 bg-gray-100 rounded-lg shadow-md flex flex-col items-start justify-between"
+      className=" w-full xl:w-[40%] h-full p-4 bg-gray-100 rounded-lg shadow-md flex flex-col items-start justify-between gap-4 xl:gap-0  "
     >
       <div className="w-full">
         <label
@@ -157,7 +157,7 @@ const BookingForm = ({ restaurantData }) => {
 
       <button
         type="submit"
-        className={`w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700
+        className={`w-full bg-black text-white py-2 px-4 rounded-md hover:bg-blue-700
          ${isLoading ? " cursor-not-allowed" : " cursor-pointer"}  `}
       >
         {isLoading ? (

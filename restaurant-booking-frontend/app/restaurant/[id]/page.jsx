@@ -1,4 +1,5 @@
 import BookingForm from "@/app/Componets/booking-form";
+import { FaStar } from "react-icons/fa6";
 
 export default async function RestaurantPage({ params }) {
   const { id } = params;
@@ -13,33 +14,31 @@ export default async function RestaurantPage({ params }) {
   }
 
   return (
-    <div className="mt-24">
-      <h1 className="text-4xl text-center my-8">
+    <div className="mt-24 mb-32">
+      <h1 className="text-2xl md:text-4xl font-bold text-gray-800 text-center mb-6">
         Book Your Table in {restaurant?.name}
       </h1>
-      <div className="flex items-center justify-center gap-6 h-[500px]">
-        <div className="w-[40%] h-full">
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="flex flex-col xl:flex-row items-center justify-center gap-6 h-auto xl:h-[480px]">
+        <div className=" w-full xl:w-[40%] h-full p-5 shadow-xl border rounded-lg">
+          <div className="bg-white rounded-lg overflow-hidden">
             <img
               src={restaurant.img}
               alt={restaurant.name}
               className="w-full h-64 object-cover"
             />
-            <div className="p-6">
+            <div className="p-4">
               <h1 className="text-3xl font-semibold text-gray-800">
                 {restaurant.name}
               </h1>
+              <div className="flex items-center mt-1 text-orange-500 font-bold">
+                <FaStar />
+                {restaurant.rating}
+              </div>
               <p className="text-lg text-gray-600">
                 {restaurant.cuisine} Cuisine
               </p>
               <p className="text-sm text-gray-500">{restaurant.address}</p>
-              <div className="flex items-center mt-4">
-                <span className="text-yellow-500 font-bold">
-                  {restaurant.rating}
-                </span>
-                <span className="ml-2 text-gray-500">Rating</span>
-              </div>
-              <p className="mt-6 text-gray-700">{restaurant.description}</p>
+              <p className="mt-2 text-gray-700">{restaurant.description}</p>
             </div>
           </div>
         </div>

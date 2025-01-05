@@ -18,22 +18,22 @@ const Carousel = () => {
   }, []);
 
   return (
-    <div className="relative w-full mx-auto overflow-hidden">
+    <div className="relative w-full mx-auto overflow-hidden h-[450px] m-2">
       <div
-        className="flex transition-transform duration-700"
+        className="flex transition-transform duration-700 h-[100%]"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {slides.map((slide, index) => (
           <div
             key={index}
-            className="flex-shrink-0 w-full h-[450] bg-cover bg-center flex items-center justify-center flex-col gap-6"
+            className="flex-shrink-0 w-full h-[100%] bg-cover bg-center flex items-center justify-center flex-col gap-6"
             style={{
               backgroundImage: `url(${slide.src})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
           >
-            <h1 className="text-6xl font-bold text-white drop-shadow-md hover:scale-105 transition-transform duration-300 shadow-lg">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-md hover:scale-105 transition-transform duration-300 shadow-lg text-center">
               Reserve Your Restaurant Table
             </h1>
             <button className="mt-4 py-2 px-6 bg-black text-white  shadow-lg hover:bg-white hover:text-black hover:scale-105 transition-all duration-300">
